@@ -29,27 +29,28 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    path: "/profile",
+    link: "/profile",
   },
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
-    path: "/edit-profile",
+    link: "/edit-profile",
   },
+
   {
     label: "Inbox",
     icon: InboxArrowDownIcon,
-    path: "/inbox",
+    link: "/inbox",
   },
   {
-    label: "Help",
+    label: "Login",
     icon: LifebuoyIcon,
-    path: "/help",
+    link: "/login ",
   },
   {
     label: "Sign Out",
     icon: PowerIcon,
-    path: "/sign-out",
+    link: "/sign-out",
   },
 ];
 
@@ -81,13 +82,13 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, path }, key) => {
+        {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
               onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
+              className={`flex  items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                   : ""
@@ -99,7 +100,7 @@ function ProfileMenu() {
               })}
               <Typography
                 as={Link}
-                to={path}
+                to={link}
                 variant="small"
                 className="font-normal"
                 color={isLastItem ? "red" : "inherit"}
