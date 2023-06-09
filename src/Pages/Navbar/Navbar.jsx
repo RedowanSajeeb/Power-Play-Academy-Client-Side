@@ -13,10 +13,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import {
-  CubeTransparentIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
   InboxArrowDownIcon,
@@ -25,6 +22,7 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -112,7 +110,6 @@ function ProfileMenu() {
 
 // nav list menu
 
-
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -120,8 +117,6 @@ function NavListMenu() {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
-
- 
 
   return (
     <React.Fragment>
@@ -138,52 +133,61 @@ function NavListMenu() {
           >
             <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
           </Card>
-          <ul className="col-span-4 flex w-full flex-col gap-1">
-           
-          </ul>
         </MenuList>
       </Menu>
-     
-      
     </React.Fragment>
   );
 }
-
-// nav list component
-const navListItems = [
-  {
-    label: "Account",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Blocks",
-    icon: CubeTransparentIcon,
-  },
-  {
-    label: "Docs",
-    icon: CodeBracketSquareIcon,
-  },
-];
 
 function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
-        <Typography
-          key={label}
-          as="a"
-          href="#"
-          variant="small"
-          color="blue-gray"
-          className="font-normal"
-        >
-          <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            {label}
-          </MenuItem>
-        </Typography>
-      ))}
+
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+          <Link>Home</Link>
+        </MenuItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+          <Link>Home</Link>
+        </MenuItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+          <Link>Classes</Link>
+        </MenuItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+          <Link>Dashboard</Link>
+        </MenuItem>
+      </Typography>
     </ul>
   );
 }
