@@ -152,7 +152,7 @@ function NavList() {
 
       <Typography
         as={Link}
-        to="/home"
+        to="/"
         variant="small"
         color="blue-gray"
         className="font-normal"
