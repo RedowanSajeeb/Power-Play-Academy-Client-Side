@@ -29,22 +29,27 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
+    path: "/profile",
   },
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
+    path: "/edit-profile",
   },
   {
     label: "Inbox",
     icon: InboxArrowDownIcon,
+    path: "/inbox",
   },
   {
     label: "Help",
     icon: LifebuoyIcon,
+    path: "/help",
   },
   {
     label: "Sign Out",
     icon: PowerIcon,
+    path: "/sign-out",
   },
 ];
 
@@ -76,7 +81,7 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, path }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
@@ -93,7 +98,8 @@ function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
-                as="span"
+                as={Link}
+                to={path}
                 variant="small"
                 className="font-normal"
                 color={isLastItem ? "red" : "inherit"}
@@ -145,47 +151,47 @@ function NavList() {
       <NavListMenu />
 
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        to="/home"
         variant="small"
         color="blue-gray"
         className="font-normal"
       >
         <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
-          <Link>Home</Link>
+          Home
         </MenuItem>
       </Typography>
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        to="/about"
         variant="small"
         color="blue-gray"
         className="font-normal"
       >
         <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
-          <Link>Home</Link>
+          About
         </MenuItem>
       </Typography>
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        to="/classes"
         variant="small"
         color="blue-gray"
         className="font-normal"
       >
         <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
-          <Link>Classes</Link>
+          Classes
         </MenuItem>
       </Typography>
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        to="/dashboard"
         variant="small"
         color="blue-gray"
         className="font-normal"
       >
         <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
-          <Link>Dashboard</Link>
+          Dashboard
         </MenuItem>
       </Typography>
     </ul>
@@ -207,11 +213,11 @@ export default function ComplexNavbar() {
     <Navbar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 mb-5">
       <div className="relative mx-auto max-w-screen-xl flex items-center text-blue-gray-900">
         <Typography
-          as="a"
-          href="#"
+          as={Link}
+          to="/"
           className="mr-4 ml-2 cursor-pointer py-1.5 text-2xl"
         >
-          Power PlayAcademy
+          Power Play Academy
         </Typography>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
