@@ -8,7 +8,18 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import SocialLoginShare from "../SocialLogin/SocialLoginShare";
+import { useForm } from "react-hook-form";
 const Login = () => {
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <Card
       color="transparent"
@@ -21,11 +32,28 @@ const Login = () => {
       <Typography color="gray" className="mt-1 font-normal">
         Enter your details to Login.
       </Typography>
-      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+      >
         <div className="mb-4 flex flex-col gap-6">
-          <Input size="lg" label="Name" />
-          <Input size="lg" label="Email" />
-          <Input type="password" size="lg" label="Password" />
+          <Input
+            {...register("email", { required: true })}
+            size="lg"
+            label="Email"
+          />
+          {errors.email && (
+            <span className="text-red-600">Name field is required</span>
+          )}
+          <Input
+            {...register("password", { required: true })}
+            type="password"
+            size="lg"
+            label="Password"
+          />
+          {errors.password && (
+            <span className="text-red-600">email field is required</span>
+          )}
         </div>
         <Checkbox
           label={
@@ -46,8 +74,9 @@ const Login = () => {
           containerProps={{ className: "-ml-2.5" }}
         />
         <Button className="mt-6" fullWidth>
-          Register
+          <input fullWidth className="w-full" type="submit" value="Login" />
         </Button>
+
         <SocialLoginShare></SocialLoginShare>
         <Typography color="gray" className="mt-4 text-center font-normal">
           Already have an account?{" "}
