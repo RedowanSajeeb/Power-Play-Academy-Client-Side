@@ -10,9 +10,13 @@ import { Link } from "react-router-dom";
 import SocialLoginShare from "../SocialLogin/SocialLoginShare";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useAuth from "../../../Hooks/useAuth";
 
 const Registration = () => {
+  const { createUser } = useAuth();
+
   const [confomError, setConfomError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -26,7 +30,25 @@ const Registration = () => {
         "Password And confirmation password are not matching"
       );
     }
-    console.log(data);
+
+   else{
+      createUser(data.email, data.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          //TODO: Tost Add 
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          //TODO: error show korta hobe!
+          console.log(errorCode,errorMessage);
+        });
+
+   }
+
+
   };
 
   return (
