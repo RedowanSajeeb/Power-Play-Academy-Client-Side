@@ -17,8 +17,10 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { Link, Outlet } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 const DeshBord = () => {
     const isAdmin = true
+    const {user} = useAuth()
     return (
       <>
         <div className="drawer-content flex flex-col items-center justify-center">

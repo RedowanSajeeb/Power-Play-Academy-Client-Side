@@ -83,8 +83,25 @@ const handlerAdminMake = (id) => {
                 <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center space-x-3">
-                    <div className="avatar online">
-                      <div className="w-16 rounded-full ring ring-success ring-offset-base-100 ring-offset-2">
+                    <div
+                      className={`avatar  ${
+                        user.role == "admin"
+                          ? "online"
+                          : "offline" && user.role == "instructor"
+                          ? "online"
+                          : ""
+                      }`}
+                    >
+                      <div
+                        className={`w-16 rounded-full ${
+                          user.role == "admin"
+                            ? " ring  ring-success ring-offset-base-100 ring-offset-2"
+                            : "ring ring-primary ring-offset-base-100 ring-offset-2" &&
+                              user.role == "instructor"
+                            ? "ring ring-primary ring-offset-base-100 ring-offset-2"
+                            : ""
+                        } `}
+                      >
                         <img
                           src={user?.photoUrl}
                           alt="Avatar Tailwind CSS Component"
@@ -121,7 +138,10 @@ const handlerAdminMake = (id) => {
                   </button>
                 </td>
                 <th>
-                  <button onClick={() => handlerAdminMake(user._id)} className="btn btn-outline btn-primary">
+                  <button
+                    onClick={() => handlerAdminMake(user._id)}
+                    className="btn btn-outline btn-primary"
+                  >
                     Make Admin
                   </button>
                 </th>
