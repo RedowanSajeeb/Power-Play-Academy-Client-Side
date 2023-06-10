@@ -9,7 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import SocialLoginShare from "../SocialLogin/SocialLoginShare";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../Hooks/useAuth";
 const Login = () => {
+  const {loginUserEmail} =useAuth()
     const {
       register,
       handleSubmit,
@@ -18,6 +20,21 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+
+    loginUserEmail(data.email, data.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        //TODO: SUCCESS message tost
+        console.log(user);
+      })
+      .catch((error) => {
+
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode,errorMessage);
+        //TODO: Error message should be something other than error 
+      });
   };
 
   return (
