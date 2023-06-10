@@ -13,7 +13,7 @@ import { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 
 const Registration = () => {
-  const { createUser } = useAuth();
+  const { createUser, userProfileUpdate } = useAuth();
 
   const [confomError, setConfomError] = useState("");
 
@@ -29,26 +29,37 @@ const Registration = () => {
       return setConfomError(
         "Password And confirmation password are not matching"
       );
-    }
-
-   else{
+    } else {
       createUser(data.email, data.password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          //TODO: Tost Add 
+          //TODO: Tost Add
           console.log(user);
+          if (user) {
+            console.log(data);
+            userProfileUpdate(
+              data.name,
+              data.photoUrl,
+              data.phoneNumber
+            )
+              .then(() => {
+                // Email updated!
+                //TODO: Tost Add
+              })
+              .catch((error) => {
+                // An error occurred
+                // ...
+              });
+          }
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           //TODO: error show korta hobe!
-          console.log(errorCode,errorMessage);
+          console.log(errorCode, errorMessage);
         });
-
-   }
-
-
+    }
   };
 
   return (
@@ -114,7 +125,7 @@ const Registration = () => {
                 <p className="text-red-600 flex justify-center items-center mx-2  mt-1">
                   <InformationCircleIcon className="w-4 h-full -mt-px" /> Use at
                   least one uppercase, one lowercase, one special case letter
-                  and one number.
+                  and one phoneNumber.
                 </p>
               )}
             </Typography>
@@ -141,19 +152,12 @@ const Registration = () => {
           {errors.photoUrl && (
             <span className="text-red-600">photoUrl field is required</span>
           )}
-          {/* TODO:1 */}
-          <Input {...register("gender")} size="lg" label="(optional) Gender" />
+
           <Input
-            {...register("number")}
-            type="number"
+            {...register("phoneNumber", { pattern: /^\d+$/ })}
+            type="tel"
             size="lg"
             label="(optional) Phone Number"
-          />
-          <Input
-            {...register("address")}
-            type="text"
-            size="lg"
-            label="(optional) Address"
           />
         </div>
         <Checkbox
