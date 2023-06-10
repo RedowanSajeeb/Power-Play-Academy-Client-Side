@@ -5,6 +5,7 @@ import Error from "../Pages/Error/Error";
 import Registration from "../Pages/Registration & Login System/Registration/Registration";
 import Login from "../Pages/Registration & Login System/Login/Login";
 import DeshBord from "../Layout/DeshBord";
+import ManageUsers from "../Pages/DeshBord/ManageUsers/ManageUsers";
 
 
 const router = createBrowserRouter([
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DeshBord></DeshBord>,
+    children: [
+      {
+        path: "manage-users", // Update the path to be relative
+        element: <ManageUsers></ManageUsers>,
+      },
+    ],
   },
 ]);
 
