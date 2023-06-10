@@ -23,6 +23,7 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 // profile menu component
 const profileMenuItems = [
@@ -50,7 +51,7 @@ const profileMenuItems = [
   {
     label: "Sign Out",
     icon: PowerIcon,
-    link: "/sign-out",
+  
   },
 ];
 
@@ -58,8 +59,36 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const renderProfileMenuItem = ({ label, icon: Icon, link }) => {
+    return (
+      <MenuItem
+        key={label}
+        onClick={closeMenu}
+        className="flex items-center gap-2 rounded"
+      >
+        <Icon className="h-4 w-4" strokeWidth={2} />
+        <Typography as={Link} to={link} variant="small" className="font-normal">
+          {label}
+        </Typography>
+      </MenuItem>
+    );
+  };
+
+  const { logOutUser} = useAuth();
+
+const handelSignOut = () =>{
+  logOutUser()
+ .then(() => {
+  // Sign-out successful.
+  //TODO 
+}).catch((error) => {
+  // An error happened.
+});
+
+}
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+     
       <MenuHandler>
         <Button
           variant="text"
@@ -82,39 +111,17 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, link }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex  items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as={Link}
-                to={link}
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
+        {renderProfileMenuItem(profileMenuItems[0])}
+        {renderProfileMenuItem(profileMenuItems[1])}
+        {renderProfileMenuItem(profileMenuItems[2])}
+        {renderProfileMenuItem(profileMenuItems[3])}
+        <button onClick={handelSignOut} className="w-full">
+          {renderProfileMenuItem(profileMenuItems[4])}
+        </button>
       </MenuList>
     </Menu>
   );
 }
-
 // nav list menu
 
 function NavListMenu() {
