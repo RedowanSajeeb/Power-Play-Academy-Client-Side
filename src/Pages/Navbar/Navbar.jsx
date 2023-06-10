@@ -46,7 +46,7 @@ const profileMenuItems = [
   {
     label: "Login",
     icon: LifebuoyIcon,
-    link: "/login ",
+    link: "/login",
   },
   {
     label: "Sign Out",
@@ -119,10 +119,18 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {renderProfileMenuItem(profileMenuItems[0])}
-        {renderProfileMenuItem(profileMenuItems[1])}
-        {renderProfileMenuItem(profileMenuItems[2])}
-        {renderProfileMenuItem(profileMenuItems[3])}
+        <Link className="w-full" to={"/profile"}>
+          {renderProfileMenuItem(profileMenuItems[0])}
+        </Link>
+        <Link className="w-full" to={"/edit-profile"}>
+          {renderProfileMenuItem(profileMenuItems[1])}
+        </Link>
+        <Link className="w-full" to={"/inbox"}>
+          {renderProfileMenuItem(profileMenuItems[2])}
+        </Link>
+        <Link className="w-full" to={"/login"}>
+          {renderProfileMenuItem(profileMenuItems[3])}
+        </Link>
         <button
           onClick={handelSignOut}
           className="w-full hover:bg-red-500/10 bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
