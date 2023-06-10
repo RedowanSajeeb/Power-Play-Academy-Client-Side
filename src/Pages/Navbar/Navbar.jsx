@@ -51,7 +51,6 @@ const profileMenuItems = [
   {
     label: "Sign Out",
     icon: PowerIcon,
-  
   },
 ];
 
@@ -74,18 +73,18 @@ function ProfileMenu() {
     );
   };
 
-  const { user, logOutUser} = useAuth();
+  const { user, logOutUser } = useAuth();
 
-const handelSignOut = () =>{
-  logOutUser()
- .then(() => {
-  // Sign-out successful.
-  //TODO 
-}).catch((error) => {
-  // An error happened.
-});
-
-}
+  const handelSignOut = () => {
+    logOutUser()
+      .then(() => {
+        // Sign-out successful.
+        //TODO
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -94,13 +93,13 @@ const handelSignOut = () =>{
           color="blue-gray"
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
-          {user ? (
+          {user?.photoURL ? (
             <Avatar
               variant="circular"
               size="sm"
               alt="candice wu"
               className="border border-blue-500 p-0.5"
-              src={user.profile}
+              src={user.photoURL}
             />
           ) : (
             <Avatar
