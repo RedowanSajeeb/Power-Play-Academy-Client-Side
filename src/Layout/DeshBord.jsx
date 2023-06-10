@@ -24,7 +24,7 @@ const DeshBord = () => {
         <Card className="fixed top-4 border-r-8 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
-              Sidebar
+              PowerAcademy Deshbord
             </Typography>
           </div>
           {isAdmin && (
@@ -33,13 +33,13 @@ const DeshBord = () => {
                 <ListItemPrefix>
                   <PresentationChartBarIcon className="h-5 w-5" />
                 </ListItemPrefix>
-                Dashboard
+                Manage Classes
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ShoppingBagIcon className="h-5 w-5" />
                 </ListItemPrefix>
-                E-Commerce
+                Manage Users
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
@@ -77,8 +77,7 @@ const DeshBord = () => {
             </List>
           )}
           <List>
-            <Link to={'/'}>
-              
+            <Link to={"/"}>
               <ListItem>
                 <ListItemPrefix>
                   <PresentationChartBarIcon className="h-5 w-5" />

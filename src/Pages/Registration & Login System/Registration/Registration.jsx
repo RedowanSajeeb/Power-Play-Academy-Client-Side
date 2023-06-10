@@ -21,6 +21,7 @@ const Registration = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -38,12 +39,31 @@ const Registration = () => {
           console.log(user);
           if (user) {
             console.log(data);
-            userProfileUpdate(
-              data.name,
-              data.photoUrl,
-              data.phoneNumber
-            )
+            userProfileUpdate(data.name, data.photoUrl, data.phoneNumber)
               .then(() => {
+                const userProfileInfoServerAdded = {
+                  name: data.name,
+                  email: data.email,
+                  phoneNumber: data.phoneNumber,
+                  photoUrl: data.photoUrl,
+                  gender: data.gender,
+                  Address: data.address,
+                };
+
+                fetch("http://localhost:5000/users", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(userProfileInfoServerAdded),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    console.log(data);
+                    if (data.insertedId) {
+                    //TODO: tost doesn't
+                      alert('Insert user successfully logged')
+                    }
+                  });
+
                 // Email updated!
                 //TODO: Tost Add
               })
@@ -154,10 +174,22 @@ const Registration = () => {
           )}
 
           <Input
-            {...register("phoneNumber", { pattern: /^\d+$/ })}
+            {...register("gender")}
+            type="tel"
+            size="lg"
+            label="(optional) Gender"
+          />
+          <Input
+            {...register("phoneNumber")}
             type="tel"
             size="lg"
             label="(optional) Phone Number"
+          />
+          <Input
+            {...register("address")}
+            type="tel"
+            size="lg"
+            label="(optional) Address"
           />
         </div>
         <Checkbox
