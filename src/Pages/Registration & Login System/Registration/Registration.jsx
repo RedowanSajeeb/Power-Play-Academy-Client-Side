@@ -50,7 +50,7 @@ const Registration = () => {
                   Address: data.address,
                 };
 
-                fetch("http://localhost:5000/users", {
+                fetch("http://localhost:5001/users", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify(userProfileInfoServerAdded),

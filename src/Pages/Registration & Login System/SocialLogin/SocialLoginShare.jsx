@@ -11,6 +11,29 @@ const SocialLoginShare = () => {
         // The signed-in user info.
         const user = result.user;
         console.log(user);
+
+         const userProfileInfoServerAdded = {
+           name: user.displayName,
+           email: user.email,
+           phoneNumber: user.phoneNumber,
+           photoUrl: user.photoURL,
+           gender: user?.gender,
+           Address: user.address,
+         };
+
+         fetch("http://localhost:5001/users", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify(userProfileInfoServerAdded),
+         })
+           .then((res) => res.json())
+           .then((data) => {
+             console.log(data);
+             if (data.insertedId) {
+               //TODO: tost doesn't
+               alert("Insert user successfully logged");
+             }
+           });
       })
       .catch((error) => {
         const errorCode = error.code;
