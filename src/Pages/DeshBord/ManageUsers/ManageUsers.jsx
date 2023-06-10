@@ -13,6 +13,31 @@ const ManageUsers = () => {
       });
   }, []);
 
+  //make Instructor handler
+  const  handlerMakeInstructor = (id) =>{
+    console.log(id);
+
+     fetch(`http://localhost:4000/users/instructors/${id}`, {
+       method: "PATCH",
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         //TODO: handle
+
+         //  if (data.modifiedCount) {
+         // //    refetch();
+         //    Swal.fire({
+         //      position: "top-center",
+         //      icon: "success",
+         //      title: `${user.name} is an now authenticated!`,
+         //      showConfirmButton: false,
+         //      timer: 1500,
+         //    });
+         //  }
+       });
+  }
+
   return (
     <div className="">
       <div className="overflow-x-auto">
@@ -63,7 +88,12 @@ const ManageUsers = () => {
                   </span>
                 </td>
                 <td>
-                  <button className="btn btn-outline">Make Instructor</button>
+                  <button
+                    onClick={() => handlerMakeInstructor(user._id)}
+                    className="btn btn-outline"
+                  >
+                    Make Instructor
+                  </button>
                 </td>
                 <th>
                   <button className="btn btn-outline btn-primary">
