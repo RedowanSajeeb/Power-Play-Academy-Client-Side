@@ -6,6 +6,7 @@ import Registration from "../Pages/Registration & Login System/Registration/Regi
 import Login from "../Pages/Registration & Login System/Login/Login";
 import DeshBord from "../Layout/DeshBord";
 import ManageUsers from "../Pages/DeshBord/ManageUsers/ManageUsers";
+import ManageClasses from "../Pages/DeshBord/ManageClasses/ManageClasses";
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "manage-users", // Update the path to be relative
         element: <ManageUsers></ManageUsers>,
+      },
+      {
+        path: "manage-classes",
+        element: <ManageClasses></ManageClasses>
       },
     ],
   },

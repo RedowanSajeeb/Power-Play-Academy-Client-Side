@@ -22,10 +22,9 @@ const DeshBord = () => {
     return (
       <>
         <div className="drawer-content flex flex-col items-center justify-center">
-          <div>
-            <Outlet></Outlet>
-          </div>
+          {/* //TODO: DeshBord Home page */}
           <div className="">
+            <Outlet></Outlet>
             <Card className="fixed top-4 border-r-8 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
               <div className="mb-2 p-4">
                 <Typography variant="h5" color="blue-gray">
@@ -34,12 +33,14 @@ const DeshBord = () => {
               </div>
               {isAdmin && (
                 <List className="border-b-2 p-3">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <PresentationChartBarIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Manage Classes
-                  </ListItem>
+                  <Link to={"/dashboard/manage-classes"}>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <PresentationChartBarIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Manage Classes
+                    </ListItem>
+                  </Link>
                   <Link to={"/dashboard/manage-users"}>
                     <ListItem>
                       <ListItemPrefix>
