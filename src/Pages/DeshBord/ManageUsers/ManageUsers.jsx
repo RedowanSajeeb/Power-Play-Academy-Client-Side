@@ -37,6 +37,31 @@ const ManageUsers = () => {
          //  }
        });
   }
+// handlerAdminMake
+
+const handlerAdminMake = (id) => {
+
+    fetch(`http://localhost:4000/users/admin/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        //TODO: handle-admin
+
+        //  if (data.modifiedCount) {
+        // //    refetch();
+        //    Swal.fire({
+        //      position: "top-center",
+        //      icon: "success",
+        //      title: `${user.name} is an now authenticated!`,
+        //      showConfirmButton: false,
+        //      timer: 1500,
+        //    });
+        //  }
+      });
+
+};
 
   return (
     <div className="">
@@ -96,7 +121,7 @@ const ManageUsers = () => {
                   </button>
                 </td>
                 <th>
-                  <button className="btn btn-outline btn-primary">
+                  <button onClick={() => handlerAdminMake(user._id)} className="btn btn-outline btn-primary">
                     Make Admin
                   </button>
                 </th>
