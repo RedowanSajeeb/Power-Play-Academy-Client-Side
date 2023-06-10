@@ -24,7 +24,9 @@ const DeshBord = () => {
         <div className="drawer-content flex flex-col items-center justify-center">
           {/* //TODO: DeshBord Home page */}
           <div className="">
-            <Outlet></Outlet>
+            <div className="md:mt-28 ms-60">
+              <Outlet></Outlet>
+            </div>
             <Card className="fixed top-4 border-r-8 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
               <div className="mb-2 p-4">
                 <Typography variant="h5" color="blue-gray">

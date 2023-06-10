@@ -14,11 +14,11 @@ const ManageUsers = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra">
           {/* head */}
-          <thead>
+          <thead className="bg-green-100 bg-opacity-20">
             <tr>
               <th>#</th>
               <th>Users</th>
@@ -44,7 +44,7 @@ const ManageUsers = () => {
                     <div>
                       <div className="font-bold">{user.name}</div>
                       <div className="text-sm opacity-50">
-                        {user.gender ? user.gender : "looking"}
+                        {user.gender ? user.gender : "look up photo"}
                       </div>
                     </div>
                   </div>
@@ -53,10 +53,14 @@ const ManageUsers = () => {
                   {user.email}
                   <br />
                   <span className="badge badge-ghost badge-sm my-3">
-                    {user.Address}
+                    {user.Address ? user.Address : "no address provided"}
                   </span>
                   <br />
-                  <span className="badge">{user.phoneNumber}</span>
+                  <span className="badge">
+                    {user.phoneNumber
+                      ? user.phoneNumber
+                      : "+88 User not accessible "}
+                  </span>
                 </td>
                 <td>
                   <button className="btn btn-outline">Make Instructor</button>
