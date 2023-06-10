@@ -173,6 +173,7 @@ function NavListMenu() {
 }
 
 function NavList() {
+    const { user } = useAuth();
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
@@ -210,7 +211,9 @@ function NavList() {
           Classes
         </MenuItem>
       </Typography>
-      <Typography
+      {
+        user &&
+        <Typography
         as={Link}
         to="/dashboard"
         variant="small"
@@ -221,6 +224,7 @@ function NavList() {
           Dashboard
         </MenuItem>
       </Typography>
+      }
     </ul>
   );
 }
