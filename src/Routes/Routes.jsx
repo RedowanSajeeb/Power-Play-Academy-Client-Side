@@ -8,6 +8,7 @@ import DeshBord from "../Layout/DeshBord";
 import ManageUsers from "../Pages/DeshBord/ManageUsers/ManageUsers";
 import ManageClasses from "../Pages/DeshBord/ManageClasses/ManageClasses";
 import AddClass from "../Pages/DeshBord/Instructor/AddClass/AddClass";
+import MyClasses from "../Pages/DeshBord/Instructor/MyClasses/MyClasses";
 
 
 const router = createBrowserRouter([
@@ -44,7 +45,11 @@ const router = createBrowserRouter([
       },
       {
         path: "add-a-class",
-        element : <AddClass></AddClass>
+        element: <AddClass></AddClass>,
+      },
+      {
+        path: "my-classes",
+        element: <MyClasses></MyClasses>
       },
     ],
   },
