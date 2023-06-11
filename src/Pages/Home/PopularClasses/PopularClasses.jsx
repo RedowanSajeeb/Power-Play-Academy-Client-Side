@@ -12,21 +12,21 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const PopularClasses = () => {
   const [axiosSecure] = useAxiosSecure();
 
-  const { data: popularClasses = [], refetch } = useQuery({
+  const { data: popularClasses = [], refetch } = useQuery(["popularClasses"], {
     queryFn: async () => {
       const res = await axiosSecure.get("/users/popular-class");
       return res.data;
     },
   });
 
-  console.log(popularClasses);
+  // console.log(popularClasses);
 
   return (
     <div className="mb-10 mt-10">
       <h1>PopularClasses</h1>
       {/* //TODO: text  */}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10  md:mx-4">
         {popularClasses.map((top6Class) => (
           <div key={top6Class._id}>
             <Card
@@ -71,7 +71,7 @@ const PopularClasses = () => {
                     variant="circular"
                     alt="candice wu"
                     className="border-2 border-white"
-                    src="https://lh3.googleusercontent.com/a/AAcHTtdKohzZRERnirmMqA0FTrNv2euRabmgGYQZuB_Ogw=s96-c"
+                    src="https://lh3.googleusercontent.com/a/AAcHTtdK22NspB0B1hToSPFcFq_AG7z-ilwkz8hhSj09dQ=s96-c"
                   />
                 )}
               </CardBody>
