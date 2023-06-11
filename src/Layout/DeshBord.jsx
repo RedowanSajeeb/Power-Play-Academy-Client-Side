@@ -18,9 +18,12 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAdmin from "../Hooks/useAdmin";
 const DeshBord = () => {
-    const isAdmin = true
-    const {user} = useAuth()
+    // const isAdmin = true
+    // const {user} = useAuth()
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin);
     return (
       <>
         <div className="drawer-content flex flex-col items-center justify-center">

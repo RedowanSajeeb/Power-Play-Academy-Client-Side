@@ -1,21 +1,26 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../Firebase/firebase.sdk';
+import axios from 'axios';
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({children}) => {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
+  const [loading,setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const loginUserEmail = (email, password) => {
+    setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const googleSignIN = () =>{
+    setLoading(true)
     return signInWithPopup(auth, googleProvider)
   }
 
@@ -45,8 +50,25 @@ const AuthProvider = ({children}) => {
   //  onAuthStateChanged
   useEffect(() => {
     const connection = onAuthStateChanged(auth, (currentUser) => {
-    //   setloding(false);
       setUser(currentUser);
+
+      if (currentUser) {
+          axios
+            .post("http://localhost:4000/jwt", { email: currentUser.email })
+            .then((data) => {
+              console.log(data.data.token);
+
+              localStorage.setItem("JWTToken", data.data.token);
+              setLoading(false);
+            });
+        }
+       else {
+        // User is signed out
+        localStorage.removeItem("JWTToken");
+
+        setLoading(false);
+      }
+
     });
     return () => {
       return connection();
@@ -62,6 +84,7 @@ const AuthProvider = ({children}) => {
     logOutUser,
     googleSignIN,
     userProfileUpdate,
+    loading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

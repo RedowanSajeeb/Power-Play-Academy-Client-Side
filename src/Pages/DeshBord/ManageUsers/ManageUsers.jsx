@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:4000/users", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setUsers(data);
-      });
-  }, []);
+
+    const [axiosSecure] = useAxiosSecure();
+
+    const { data: users = [], refetch } = useQuery(["users"], async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    });
+
 
   //make Instructor handler
   const  handlerMakeInstructor = (id) =>{
@@ -24,7 +23,9 @@ const ManageUsers = () => {
        .then((data) => {
          console.log(data);
          //TODO: handle
-
+          if(data.modifiedCount > 0){
+            refetch()
+          }
          //  if (data.modifiedCount) {
          // //    refetch();
          //    Swal.fire({
