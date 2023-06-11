@@ -67,19 +67,34 @@ const AddClass = () => {
       >
         <div className="flex space-x-5">
           <div className="flex flex-col w-72 gap-6">
-            <Input color="teal" label="Class name" {...register("className")} />
+            <Input
+              color="teal"
+              label="Class name"
+              {...register("className", { required: true })}
+            />
+            {errors.className && (
+              <span className=" text-red-500">Name field is required</span>
+            )}
             <Input
               color="teal"
               type="number"
               label="Available seats"
-              {...register("availableSeats")}
+              {...register("availableSeats", { required: true })}
             />
+            {errors.availableSeats && (
+              <span className=" text-red-500">
+                Available Seats field is required
+              </span>
+            )}
             <Input
               type="number"
               color="teal"
               label="Price"
-              {...register("price")}
+              {...register("price", { required: true })}
             />
+            {errors.price && (
+              <span className=" text-red-500">Price field is required</span>
+            )}
           </div>
           <div className="flex flex-col w-72 gap-6">
             <Input
@@ -109,10 +124,13 @@ const AddClass = () => {
             <span className="text-2xl">Pick a Class Image</span>
           </label>
           <input
-            {...register("classImage")}
+            {...register("classImage", { required: true })}
             type="file"
             className="file-input file-input-bordered w-full max-w-xs"
           />
+          {errors.classImage && (
+            <span className=" text-red-500">Image field is required</span>
+          )}
         </div>
         <input
           className="btn  btn-neutral w-full mt-10"
