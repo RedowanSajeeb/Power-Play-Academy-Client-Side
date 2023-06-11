@@ -35,7 +35,8 @@ const AddClass = () => {
           addClassInfo.price = parseFloat(addClassInfo.price);
           addClassInfo.availableSeats = parseFloat(addClassInfo.availableSeats);
           addClassInfo.classImage = classImgUrl;
-
+          addClassInfo.instructorOPhoto = user?.photoURL;
+          
           axiosSecure
             .post("/users/instructor/class", addClassInfo)
             .then((data) => {
