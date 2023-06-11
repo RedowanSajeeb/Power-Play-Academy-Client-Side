@@ -211,20 +211,30 @@ function NavList() {
           Classes
         </MenuItem>
       </Typography>
-      {
-        user &&
-        <Typography
+      <Typography
         as={Link}
-        to="/dashboard"
+        to="/instructors"
         variant="small"
         color="blue-gray"
         className="font-normal"
       >
         <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
-          Dashboard
+          Instructors
         </MenuItem>
       </Typography>
-      }
+      {user && (
+        <Typography
+          as={Link}
+          to="/dashboard"
+          variant="small"
+          color="blue-gray"
+          className="font-normal"
+        >
+          <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+            Dashboard
+          </MenuItem>
+        </Typography>
+      )}
     </ul>
   );
 }
