@@ -20,12 +20,14 @@ import {
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAdmin from "../Hooks/useAdmin";
+import useInstructor from "../Hooks/useInstructor";
 const DeshBord = () => {
     
     const {user} = useAuth()
     console.log(user);
     const [isAdmin] = useAdmin()
-    console.log(isAdmin);
+    const[isInstructor] = useInstructor()
+    console.log(isInstructor);
     return (
       <>
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -68,6 +70,59 @@ const DeshBord = () => {
                         <ShoppingBagIcon className="h-5 w-5" />
                       </ListItemPrefix>
                       Manage Users
+                    </ListItem>
+                  </Link>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <InboxIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Inbox
+                    <ListItemSuffix>
+                      <Chip
+                        value="14"
+                        size="sm"
+                        variant="ghost"
+                        color="blue-gray"
+                        className="rounded-full"
+                      />
+                    </ListItemSuffix>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <UserCircleIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Profile
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <Cog6ToothIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Settings
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <PowerIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Log Out
+                  </ListItem>
+                </List>
+              )}
+              {isInstructor && (
+                <List className="border-b-2 p-3">
+                  <Link to={"/dashboard/add-a-class"}>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <PresentationChartBarIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Add a Class
+                    </ListItem>
+                  </Link>
+                  <Link to={"/dashboard/my-classes"}>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ShoppingBagIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      My Classes
                     </ListItem>
                   </Link>
                   <ListItem>
