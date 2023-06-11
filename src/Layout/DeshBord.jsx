@@ -24,10 +24,10 @@ import useInstructor from "../Hooks/useInstructor";
 const DeshBord = () => {
     
     const {user} = useAuth()
-    console.log(user);
+    // console.log(user);
     const [isAdmin] = useAdmin()
     const[isInstructor] = useInstructor()
-    console.log(isInstructor);
+    // console.log(isInstructor);
     return (
       <>
         <div className="drawer-content flex flex-col items-center justify-center">

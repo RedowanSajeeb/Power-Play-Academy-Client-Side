@@ -12,11 +12,11 @@ const useInstructor = () => {
       queryFn: async () => {
         const res = await axiosSecure.get(`/users/instructor/${user?.email}`);
 
-        console.log("this is Instructor");
+        // console.log("this is Instructor");
         return res.data.instructor;
       },
     });
-    console.log(isInstructor);
+    // console.log(isInstructor);
     return [isInstructor, isInstructorLoading];
 
 

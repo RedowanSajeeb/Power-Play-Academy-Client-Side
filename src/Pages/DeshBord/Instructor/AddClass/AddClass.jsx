@@ -2,17 +2,63 @@ import { Input } from "@material-tailwind/react";
 import React from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+const img_hostingApi_Token = import.meta.env.VITE_imgHostingAPI;
 
 const AddClass = () => {
+  const [axiosSecure] = useAxiosSecure();
+  const imgHostingAPI = `https://api.imgbb.com/1/upload?key=${img_hostingApi_Token}`;
   const { user } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
 
-   const {
-     register,
-     handleSubmit,
-  
-     formState: { errors },
-   } = useForm();
-   const onSubmit = (data) => console.log(data);
+    const formData = new FormData();
+    formData.append("image", data.classImage[0]);
+
+    fetch(imgHostingAPI, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.success) {
+          const classImgUrl = result?.data?.display_url;
+          const addClassInfo = data;
+
+          addClassInfo.price = parseFloat(addClassInfo.price);
+          addClassInfo.availableSeats = parseFloat(addClassInfo.availableSeats);
+          addClassInfo.classImage = classImgUrl;
+
+          axiosSecure
+            .post("/users/instructor/class", addClassInfo)
+            .then((data) => {
+              console.log("add new class", data.data);
+              if (data.data.acknowledged) {
+                reset();
+                alert("class added successfully");
+                //TODO add new tost
+                // Swal.fire({
+                //   position: "top-center",
+                //   icon: "success",
+                //   title: "New menu item inserted successfully",
+                //   showConfirmButton: false,
+                //   timer: 1500,
+                // });
+              }
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div>
       <form
@@ -28,7 +74,12 @@ const AddClass = () => {
               label="Available seats"
               {...register("availableSeats")}
             />
-            <Input type="number" color="teal" label="Price" {...register("price")} />
+            <Input
+              type="number"
+              color="teal"
+              label="Price"
+              {...register("price")}
+            />
           </div>
           <div className="flex flex-col w-72 gap-6">
             <Input
