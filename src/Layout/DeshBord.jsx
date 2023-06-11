@@ -7,6 +7,7 @@ import {
   ListItemPrefix,
   ListItemSuffix,
   Chip,
+  Avatar,
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
@@ -20,8 +21,9 @@ import { Link, Outlet } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useAdmin from "../Hooks/useAdmin";
 const DeshBord = () => {
-    // const isAdmin = true
-    // const {user} = useAuth()
+    
+    const {user} = useAuth()
+    console.log(user);
     const [isAdmin] = useAdmin()
     console.log(isAdmin);
     return (
@@ -36,6 +38,18 @@ const DeshBord = () => {
               <div className="mb-2 p-4">
                 <Typography variant="h5" color="blue-gray">
                   PowerAcademy Deshbord
+                  {/* //TODO */}
+                  <div className="flex space-x-2 mt-3">
+                    <Avatar
+                      src={user?.photoURL}
+                      alt="avatar"
+                      variant="rounded"
+                      withBorder={true}
+                      color="green"
+                      className="p-0.5"
+                    />
+                    <h1 className="mt-3 text-center">{user?.displayName}</h1>
+                  </div>
                 </Typography>
               </div>
               {isAdmin && (

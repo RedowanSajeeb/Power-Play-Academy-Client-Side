@@ -49,7 +49,9 @@ const handlerAdminMake = (id) => {
       .then((data) => {
         console.log(data);
         //TODO: handle-admin
-
+            if (data.modifiedCount > 0) {
+              refetch();
+            }
         //  if (data.modifiedCount) {
         // //    refetch();
         //    Swal.fire({
