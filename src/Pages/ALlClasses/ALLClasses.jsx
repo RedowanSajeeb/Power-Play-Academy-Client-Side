@@ -37,15 +37,31 @@ const ALLClasses = () => {
                 layout="fill"
               />
             </CardHeader>
-            <CardBody>
+            <CardBody
+              className={`${
+                parseFloat(classA.availableSeats) <= 0 ? " text-xl  text-red-600" : ""
+              }`}
+              style={{
+                backgroundImage: `${
+                  parseFloat(classA.availableSeats) <= 0
+                    ? `url('https://www.shutterstock.com/image-vector/not-available-watermark-stamp-text-260nw-522778633.jpg')`
+                    : ""
+                }`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right center",
+                backgrounOpacity: "20%", 
+                
+              }}
+            >
               <Typography variant="h5" color="blue-gray" className="mb-2">
                 {classA.className}
               </Typography>
               <Typography variant="h6" color="blue-gray" className="mb-2">
                 Instructor: {classA.instructorName}
               </Typography>
-              <h4>Available seats: {classA.availableSeats}</h4>
-              <h4>price: $ {classA.price}</h4>
+              <h4 className="">Available seats: {classA.availableSeats}</h4>
+              <h4>Price: $ {classA.price}</h4>
             </CardBody>
 
             <CardFooter className="pt-0 ">
