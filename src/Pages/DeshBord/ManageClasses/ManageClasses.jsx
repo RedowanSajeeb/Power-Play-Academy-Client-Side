@@ -27,79 +27,72 @@ const ManageClasses = () => {
       },
     }
   );
-  // console.log(admiNclassesALL);
 
   const [open, setOpen] = React.useState(false);
   const [feedbackText, setFeedbackText] = React.useState("");
+  const [selectedClassId, setSelectedClassId] = React.useState(null);
 
-  const handleOpen = () => {
+  const handleOpen = (id) => {
     setOpen(!open);
-    setFeedbackText(" ");
+    setSelectedClassId(id);
+    setFeedbackText("");
+    console.log(id);
   };
 
-  // handlerApproved;
+  const handleSendFeedback = () => {
+    if (!selectedClassId) {
+      return;
+    }
+
+   axiosSecure
+     .patch(`/admin/feedback/${selectedClassId}`, { feedback: feedbackText })
+     .then((data) => {
+       console.log("after posting feedback", data.data);
+       refetch();
+       setOpen(false);
+     })
+     .catch((error) => {
+       console.log("Error while sending feedback:", error);
+     });
+
+  };
 
   const handlerApproved = (id) => {
-    console.log(id);
-
     fetch(`http://localhost:4000/class/approved/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        //TODO: handle-admin
         if (data.modifiedCount > 0) {
           refetch();
         }
-        //  if (data.modifiedCount) {
-        // //    refetch();
-        //    Swal.fire({
-        //      position: "top-center",
-        //      icon: "success",
-        //      title: `${user.name} is an now authenticated!`,
-        //      showConfirmButton: false,
-        //      timer: 1500,
-        //    });
-        //  }
+      })
+      .catch((error) => {
+        console.log("Error while approving class:", error);
       });
   };
 
-  // handlerDenyd;
-
   const handlerDenyd = (id) => {
-    console.log(id);
     fetch(`http://localhost:4000/class/denied/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        //TODO: handle-admin
         if (data.modifiedCount > 0) {
           refetch();
         }
-        //  if (data.modifiedCount) {
-        // //    refetch();
-        //    Swal.fire({
-        //      position: "top-center",
-        //      icon: "success",
-        //      title: `${user.name} is an now authenticated!`,
-        //      showConfirmButton: false,
-        //      timer: 1500,
-        //    });
-        //  }
+      })
+      .catch((error) => {
+        console.log("Error while denying class:", error);
       });
   };
 
-  console.log(admiNclassesALL);
   return (
     <div>
       classes
       <div>
         <div className="overflow-x-auto">
           <table className="table table-zebra">
-            {/* head */}
             <thead>
               <tr>
                 <th>#</th>
@@ -123,22 +116,22 @@ const ManageClasses = () => {
                     {adminClasses.instructorName}
                     <br />
                     <span>
-                      {" "}
                       <AiOutlineMail /> {adminClasses.instructorEmail}
                     </span>
                   </td>
-                  <div className="flex flex-col justify-center items-center">
-                    <td>
+                  <td>
+                    <div className="flex flex-col justify-center items-center">
                       <div className="stats shadow">
                         <div className="stat flex flex-col justify-center items-center">
                           <div className="stat-title">Available seats</div>
                           <div className="stat-value">{0}</div>
                           <div className="stat-desc text-xl">
-                            Price:$ {adminClasses.price}
+                            Price: ${adminClasses.price}
                           </div>
                         </div>
                       </div>
-                      <Chip className="mt-2 text-center"
+                      <Chip
+                        className="mt-2 text-center"
                         variant="ghost"
                         color="blue"
                         size="sm"
@@ -149,71 +142,74 @@ const ManageClasses = () => {
                           <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                         }
                       />
-                    </td>
+                    </div>
+                  </td>
 
-                    <td>
-                      <div className="flex gap-2 mr-0">
-                        <Button
-                          onClick={() => handlerApproved(adminClasses._id)}
-                          color="green"
-                          disabled={
-                            adminClasses.Status == "approved" ||
-                            adminClasses.Status == "denied"
-                          }
-                        >
-                          Approve
-                        </Button>
-                        <Button
-                          onClick={() => handlerDenyd(adminClasses._id)}
-                          color="red"
-                          disabled={adminClasses.Status == "denied"}
-                        >
-                          Deny
-                        </Button>
+                  <td>
+                    <div className="flex gap-2 mr-0">
+                      <Button
+                        onClick={() => handlerApproved(adminClasses._id)}
+                        color="green"
+                        disabled={
+                          adminClasses.Status === "approved" ||
+                          adminClasses.Status === "denied"
+                        }
+                      >
+                        Approve
+                      </Button>
+                      <Button
+                        onClick={() => handlerDenyd(adminClasses._id)}
+                        color="red"
+                        disabled={adminClasses.Status === "denied"}
+                      >
+                        Deny
+                      </Button>
 
-                        <>
-                          <Button onClick={handleOpen}>feedback</Button>
-                          <Dialog open={open} handler={handleOpen}>
-                            <div className="flex items-center justify-between">
-                              {/* //TODO  */}
-                              <DialogHeader> send feedback to @</DialogHeader>
-                              <XMarkIcon
-                                className="mr-3 h-5 w-5"
-                                onClick={handleOpen}
+                      <>
+                        <Button onClick={() => handleOpen(adminClasses._id)}>
+                          feedback
+                        </Button>
+                        <Dialog open={open} handler={handleOpen}>
+                          <div className="flex items-center justify-between">
+                            <DialogHeader>
+                              Send feedback to instructor
+                            </DialogHeader>
+                            <XMarkIcon
+                              className="mr-3 h-5 w-5"
+                              onClick={handleOpen}
+                            />
+                          </div>
+                          <DialogBody divider>
+                            <div className="grid gap-6">
+                              <Textarea
+                                label="Send feedback"
+                                value={feedbackText}
+                                onChange={(e) =>
+                                  setFeedbackText(e.target.value)
+                                }
                               />
                             </div>
-                            <DialogBody divider>
-                              <div className="grid gap-6">
-                                <Textarea
-                                  label="send feedback"
-                                  value={feedbackText}
-                                  onChange={(e) =>
-                                    setFeedbackText(e.target.value)
-                                  }
-                                />
-                              </div>
-                            </DialogBody>
-                            <DialogFooter className="space-x-2">
-                              <Button
-                                variant="outlined"
-                                color="red"
-                                onClick={handleOpen}
-                              >
-                                close
-                              </Button>
-                              <Button
-                                variant="gradient"
-                                color="green"
-                                onClick={() => console.log(feedbackText)}
-                              >
-                                send feedback
-                              </Button>
-                            </DialogFooter>
-                          </Dialog>
-                        </>
-                      </div>
-                    </td>
-                  </div>
+                          </DialogBody>
+                          <DialogFooter className="space-x-2">
+                            <Button
+                              variant="outlined"
+                              color="red"
+                              onClick={handleOpen}
+                            >
+                              Close
+                            </Button>
+                            <Button
+                              variant="gradient"
+                              color="green"
+                              onClick={handleSendFeedback}
+                            >
+                              Send feedback
+                            </Button>
+                          </DialogFooter>
+                        </Dialog>
+                      </>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
