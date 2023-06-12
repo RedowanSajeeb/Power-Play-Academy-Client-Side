@@ -31,7 +31,7 @@ const Instructors = () => {
             <Card key={instructor._id} className="mt-6 w-96">
               <CardBody>
                 <img
-                  className="w-16 h-16 mb-4"
+                  className="w-16 h-16 mb-4 rounded-lg"
                   src={instructor.instructorOPhoto}
                   alt=""
                 />
