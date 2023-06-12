@@ -9,8 +9,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import useAdmin from "../../Hooks/useAdmin";
-import useInstructor from "../../Hooks/useInstructor";
+
 const ALLClasses = () => {
   const [axiosSecure] = useAxiosSecure();
 
