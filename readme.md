@@ -3,22 +3,18 @@
 
 
 
-![Logo](https://images.vexels.com/media/users/3/189965/isolated/preview/2fa8f49698539df25f9d1bb0ea22e5d9-toy-dice-icon.png)
+![Logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKW13SWBeP3iPK72H6AF8l_o0f-58INUzV5w&usqp=CAU)
 
 
 ## Project Live LINk
 
- - [ Live Site ](https://brainy-toy-store.web.app/)
- - [ Server Side GitHub Link ](https://github.com/programming-hero-web-course-4/b7a11-toy-marketplace-server-side-RedowanSajeeb)
+ - [ Live Site ](https://power-play-academy.web.app)
+ - [ Server Side GitHub Link ](https://github.com/programming-hero-web-course1/b7a12-summer-camp-server_side-RedowanSajeeb)
 
 ## Features
 
-- Our Gallery
-- Shop By Category
-- Details
-- Toys Added Features
-- Toys server site remove Features
-- firebase Added
+- top 6 Classes
+- top 6 Popular Instructor
 ---------
 ## Technology use this project
 - mongoDB (CRUD)
@@ -39,28 +35,29 @@
 ---------
 
 ## dependencies
-- heroicons/react
-- material-tailwind/react
-- smastrom/react-rating
-- aos
-- daisyui
-- firebase
-- framer-motion
-- localforage
-- match-sorter
-- react
-- react-alert
-- react-alert-template-basic
-- react-dom
-- react-hot-toast"
-- react-icons
-- react-lazy-load
-- react-loader-spinner
-- react-router-dom
-- react-to-pdf
-- react-toastify
-- sort-by
-- swiper
+- @emotion/react": "^11.11.1",
+- @material-tailwind/react": "^2.0.1",
+- @react-spring/web": "^9.7.2",
+- @stripe/react-stripe-js": "^2.1.0",
+- @stripe/stripe-js": "^1.54.0",
+- @tanstack/react-query": "^4.29.12",
+- animejs": "^3.2.1",
+- aos": "^3.0.0-beta.6",
+- axios": "^1.4.0",
+- firebase": "^9.22.2",
+- localforage": "^1.10.0",
+- match-sorter": "^6.3.1",
+- react": "^18.2.0",
+- react-awesome-reveal": "^4.2.3",
+- react-dom": "^18.2.0",
+-  react-helmet": "^6.1.0",
+-  react-hook-form": "^7.44.3",
+-  react-hot-toast": "^2.4.1",
+-  react-icons": "^4.9.0",
+-  react-router-dom": "^6.12.1",
+-  sort-by": "^1.2.0",
+-  sweetalert2": "^11.7.12",
+-  swiper": "^9.3.2"
 ## Installation
 
 Install my-project with npm
