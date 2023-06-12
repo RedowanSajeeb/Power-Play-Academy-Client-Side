@@ -2,7 +2,7 @@ import React from "react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
-import { Chip, IconButton, Tooltip } from "@material-tailwind/react";
+import { Button, Chip, IconButton, Tooltip } from "@material-tailwind/react";
 
 const MyClasses = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -67,15 +67,6 @@ const MyClasses = () => {
               <div className="flex flex-col justify-center">
                 <th>
                   <div className="flex gap-2">
-                    {/* <Chip
-                      variant="ghost"
-                      color="blue"
-                      size="sm"
-                      value="pending"
-                      icon={
-                        <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
-                      }
-                    /> */}
                     <Chip
                       className="text-center ms-6"
                       variant="ghost"
@@ -98,15 +89,6 @@ const MyClasses = () => {
                         <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                       }
                     />
-                    {/* <Chip
-                      variant="ghost"
-                      color="red"
-                      size="sm"
-                      value="denied"
-                      icon={
-                        <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-red-900" />
-                      }
-                    /> */}
                   </div>
                 </th>
                 <th>
@@ -120,11 +102,18 @@ const MyClasses = () => {
                 </th>
                 <th>
                   <div>
-                    <Chip variant="gradient" value="chip gradient" />
+                    {classItem.feedback ? (
+                      <Tooltip content={classItem?.feedback?.feedback}>
+                        <Button  className="text-center ms-2">Feedback</Button>
+                      </Tooltip>
+                    ) : (
+                      ""
+                    )}
+
                     <Chip
-                      className="mt-2"
+                      className="mt-2 text-center"
                       variant="outlined"
-                      value="chip outlined"
+                      value="Update"
                     />
                   </div>
                 </th>
