@@ -23,7 +23,6 @@ const ALLClasses = () => {
 
   console.log(classesALL);
 
-
   return (
     <div>
       ------classes
@@ -49,16 +48,14 @@ const ALLClasses = () => {
               <h4>Available seats: {classA.availableSeats}</h4>
               <h4>price: $ {classA.price}</h4>
             </CardBody>
+
             <CardFooter className="pt-0 ">
               <Button
-                disabled={classA.availableSeats <= 0}
+                disabled={parseFloat(classA.availableSeats) <= 0}
                 className="w-full bg-green-700"
               >
                 Select
               </Button>
-              {
-
-              }
             </CardFooter>
           </Card>
         ))}
