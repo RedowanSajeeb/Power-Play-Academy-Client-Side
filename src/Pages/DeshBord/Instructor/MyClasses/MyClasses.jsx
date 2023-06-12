@@ -67,7 +67,7 @@ const MyClasses = () => {
               <div className="flex flex-col justify-center">
                 <th>
                   <div className="flex gap-2">
-                    <Chip
+                    {/* <Chip
                       variant="ghost"
                       color="blue"
                       size="sm"
@@ -75,17 +75,30 @@ const MyClasses = () => {
                       icon={
                         <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                       }
-                    />
+                    /> */}
                     <Chip
+                      className="text-center ms-6"
                       variant="ghost"
-                      color="green"
+                      color={
+                        (classItem.Status === "approved" && "green") ||
+                        (classItem.Status === "denied" && "red") ||
+                        (classItem.Status !== "approved" &&
+                          classItem.Status !== "approved" &&
+                          "")
+                      }
                       size="sm"
-                      value="approved"
+                      value={
+                        (classItem.Status === "approved" && "approved") ||
+                        (classItem.Status === "denied" && "denied") ||
+                        (classItem.Status !== "approved" &&
+                          classItem.Status !== "approved" &&
+                          "pending")
+                      }
                       icon={
                         <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                       }
                     />
-                    <Chip
+                    {/* <Chip
                       variant="ghost"
                       color="red"
                       size="sm"
@@ -93,7 +106,7 @@ const MyClasses = () => {
                       icon={
                         <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-red-900" />
                       }
-                    />
+                    /> */}
                   </div>
                 </th>
                 <th>
