@@ -142,7 +142,11 @@ const ManageClasses = () => {
                           variant="ghost"
                           color="blue"
                           size="sm"
-                          value={adminClasses.Status ? adminClasses.Status : "pending"}
+                          value={
+                            adminClasses.Status
+                              ? adminClasses.Status
+                              : "pending"
+                          }
                           icon={
                             <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                           }
@@ -155,14 +159,15 @@ const ManageClasses = () => {
                         <Button
                           onClick={() => handlerApproved(adminClasses._id)}
                           color="green"
+                          disabled={adminClasses.Status == "approved"}
                         >
                           Approve
                         </Button>
                         <Button
                           onClick={() => handlerDenyd(adminClasses._id)}
                           color="red"
+                          disabled={adminClasses.Status == "denied"}
                         >
-                          {" "}
                           Deny
                         </Button>
 
