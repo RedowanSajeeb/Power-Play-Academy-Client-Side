@@ -22,7 +22,7 @@ const ManageClasses = () => {
     ["AllClassesBYAdmin"],
     {
       queryFn: async () => {
-        const res = await axiosSecure.get("/classes/all");
+        const res = await axiosSecure.get("/classes/all/manage/classes");
         return res.data;
       },
     }

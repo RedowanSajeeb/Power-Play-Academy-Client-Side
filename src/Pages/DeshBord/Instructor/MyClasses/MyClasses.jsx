@@ -34,7 +34,7 @@ const MyClasses = () => {
             <th>Class name</th>
             <th>Available seats</th>
             <th>Price</th>
-            <th></th>
+            <th className="text-center">Status</th>
             <th></th>
           </tr>
         </thead>
@@ -104,7 +104,7 @@ const MyClasses = () => {
                   <div>
                     {classItem.feedback ? (
                       <Tooltip content={classItem?.feedback?.feedback}>
-                        <Button  className="text-center ms-2">Feedback</Button>
+                        <Button className="text-center ms-2">Feedback</Button>
                       </Tooltip>
                     ) : (
                       ""
