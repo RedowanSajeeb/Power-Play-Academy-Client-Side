@@ -27,16 +27,73 @@ const ManageClasses = () => {
       },
     }
   );
-  console.log(admiNclassesALL);
+  // console.log(admiNclassesALL);
 
   const [open, setOpen] = React.useState(false);
+  const [feedbackText, setFeedbackText] = React.useState("");
 
-  const handleOpen = () =>{ 
-    setOpen(!open)
+  const handleOpen = () => {
+    setOpen(!open);
+    setFeedbackText(" ");
+  };
 
+  // handlerApproved;
+
+  const handlerApproved = (id) => {
+    console.log(id);
+
+     fetch(`http://localhost:4000/class/approved/${id}`, {
+       method: "PATCH",
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         //TODO: handle-admin
+         if (data.modifiedCount > 0) {
+           refetch();
+         }
+         //  if (data.modifiedCount) {
+         // //    refetch();
+         //    Swal.fire({
+         //      position: "top-center",
+         //      icon: "success",
+         //      title: `${user.name} is an now authenticated!`,
+         //      showConfirmButton: false,
+         //      timer: 1500,
+         //    });
+         //  }
+       });
 
   };
 
+  // handlerDenyd;
+
+  const handlerDenyd = (id) => {
+    console.log(id);
+    fetch(`http://localhost:4000/class/denied/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        //TODO: handle-admin
+        if (data.modifiedCount > 0) {
+          refetch();
+        }
+        //  if (data.modifiedCount) {
+        // //    refetch();
+        //    Swal.fire({
+        //      position: "top-center",
+        //      icon: "success",
+        //      title: `${user.name} is an now authenticated!`,
+        //      showConfirmButton: false,
+        //      timer: 1500,
+        //    });
+        //  }
+      });
+  };
+
+  console.log(admiNclassesALL); 
   return (
     <div>
       classes
@@ -59,7 +116,7 @@ const ManageClasses = () => {
                   <th>{index + 1}</th>
                   <td>
                     <div className="w-24 rounded-xl">
-                      <img src={adminClasses.classImage} />
+                      <img src={adminClasses.classImage} alt="Class" />
                     </div>
                   </td>
                   <td>{adminClasses.className}</td>
@@ -68,8 +125,7 @@ const ManageClasses = () => {
                     <br />
                     <span>
                       {" "}
-                      <AiOutlineMail></AiOutlineMail>{" "}
-                      {adminClasses.instructorEmail}
+                      <AiOutlineMail /> {adminClasses.instructorEmail}
                     </span>
                   </td>
                   <div className="flex flex-col justify-center items-center">
@@ -86,7 +142,7 @@ const ManageClasses = () => {
                           variant="ghost"
                           color="blue"
                           size="sm"
-                          value="pending"
+                          value={adminClasses.Status ? adminClasses.Status : "pending"}
                           icon={
                             <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
                           }
@@ -95,9 +151,20 @@ const ManageClasses = () => {
                     </td>
 
                     <td>
-                      <div className="flex gap-2">
-                        <Button color="green">Approve</Button>
-                        <Button color="red"> Deny</Button>
+                      <div className="flex gap-2 mr-0">
+                        <Button
+                          onClick={() => handlerApproved(adminClasses._id)}
+                          color="green"
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          onClick={() => handlerDenyd(adminClasses._id)}
+                          color="red"
+                        >
+                          {" "}
+                          Deny
+                        </Button>
 
                         <>
                           <Button onClick={handleOpen}>feedback</Button>
@@ -112,7 +179,13 @@ const ManageClasses = () => {
                             </div>
                             <DialogBody divider>
                               <div className="grid gap-6">
-                                <Textarea label="send feedback" />
+                                <Textarea
+                                  label="send feedback"
+                                  value={feedbackText}
+                                  onChange={(e) =>
+                                    setFeedbackText(e.target.value)
+                                  }
+                                />
                               </div>
                             </DialogBody>
                             <DialogFooter className="space-x-2">
@@ -126,7 +199,7 @@ const ManageClasses = () => {
                               <Button
                                 variant="gradient"
                                 color="green"
-                                onClick={handleOpen}
+                                onClick={() => console.log(feedbackText)}
                               >
                                 send feedback
                               </Button>
