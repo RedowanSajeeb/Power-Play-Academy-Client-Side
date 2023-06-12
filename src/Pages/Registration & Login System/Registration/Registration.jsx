@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLoginShare from "../SocialLogin/SocialLoginShare";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -16,6 +16,9 @@ const Registration = () => {
   const { createUser, userProfileUpdate } = useAuth();
 
   const [confomError, setConfomError] = useState("");
+const navigate = useNavigate();
+const location = useLocation();
+const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -61,6 +64,7 @@ const Registration = () => {
                     if (data.insertedId) {
                     //TODO: tost doesn't
                       alert('Insert user successfully logged')
+                       navigate(from, { replace: true });
                     }
                   });
 

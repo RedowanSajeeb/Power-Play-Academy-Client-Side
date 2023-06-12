@@ -1,17 +1,23 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
 import useAuth from "../../../Hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLoginShare = () => {
   const { googleSignIN } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
 
   const handlerGoogle = () => {
     googleSignIN()
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-        console.log(user);
-
+         console.log(user);
+        navigate(from, { replace: true });
          const userProfileInfoServerAdded = {
            name: user.displayName,
            email: user.email,
@@ -32,6 +38,7 @@ const SocialLoginShare = () => {
              if (data.insertedId) {
                //TODO: tost doesn't
                alert("Insert user successfully logged");
+               navigate(from, { replace: true });
              }
            });
       })

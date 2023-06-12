@@ -11,6 +11,7 @@ import AddClass from "../Pages/DeshBord/Instructor/AddClass/AddClass";
 import MyClasses from "../Pages/DeshBord/Instructor/MyClasses/MyClasses";
 import ALLClasses from "../Pages/ALlClasses/ALLClasses";
 import Instructors from "../Pages/Instructors/Instructors";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -38,13 +39,17 @@ const router = createBrowserRouter([
       },
       {
         path: "instructors",
-        element: <Instructors></Instructors>
+        element: <Instructors></Instructors>,
       },
     ],
   },
   {
     path: "/dashboard",
-    element: <DeshBord></DeshBord>,
+    element: (
+      <PrivateRoute>
+        <DeshBord></DeshBord>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "manage-users", // Update the path to be relative
