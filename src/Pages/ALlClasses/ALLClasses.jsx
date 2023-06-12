@@ -10,6 +10,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import useAuth from "../../Hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const ALLClasses = () => {
   const [rolechak, setRolechak] = useState(false);
@@ -83,16 +84,20 @@ const ALLClasses = () => {
             </CardBody>
 
             <CardFooter className="pt-0 ">
-              <Button
-                disabled={rolechak == true || parseFloat(classA.availableSeats) <= 0 }
-                className={`w-full ${
-                  parseFloat(classA.availableSeats) <= 0
-                    ? "bg-green-500"
-                    : "bg-green-700"
-                }`}
-              >
-                Select
-              </Button>
+              <Link to={"/dashboard/payment"}>
+                <Button
+                  disabled={
+                    rolechak == true || parseFloat(classA.availableSeats) <= 0
+                  }
+                  className={`w-full ${
+                    parseFloat(classA.availableSeats) <= 0
+                      ? "bg-green-500"
+                      : "bg-green-700"
+                  }`}
+                >
+                  Select
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}

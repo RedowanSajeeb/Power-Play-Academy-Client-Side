@@ -12,6 +12,7 @@ import MyClasses from "../Pages/DeshBord/Instructor/MyClasses/MyClasses";
 import ALLClasses from "../Pages/ALlClasses/ALLClasses";
 import Instructors from "../Pages/Instructors/Instructors";
 import PrivateRoute from "./PrivateRoute";
+import Payment from "../Pages/Payment/Payment";
 
 
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "my-classes",
         element: <MyClasses></MyClasses>,
+      },
+      {
+        path: "payment",
+        element : <Payment></Payment>
       },
     ],
   },

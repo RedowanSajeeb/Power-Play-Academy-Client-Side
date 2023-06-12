@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   MobileNav,
@@ -24,7 +24,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
-
+import { Switch } from "@material-tailwind/react";
 // profile menu component
 const profileMenuItems = [
   {
@@ -173,7 +173,29 @@ function NavListMenu() {
 }
 
 function NavList() {
-    const { user } = useAuth();
+ const [theme, setTheme] = useState(null);
+
+ useEffect(() => {
+   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+     setTheme("light");
+   } else {
+     setTheme("dark");
+   }
+ }, []);
+
+ useEffect(() => {
+   if (theme === "dark") {
+     document.documentElement.classList.add("dark");
+   } else {
+     document.documentElement.classList.remove("dark");
+   }
+ }, [theme]);
+
+ const handleThemeSwitch = () => {
+   setTheme(theme === "dark" ? "light" : "dark");
+ };
+
+ const { user } = useAuth();
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
@@ -222,6 +244,12 @@ function NavList() {
           Instructors
         </MenuItem>
       </Typography>
+      <Switch
+        onClick={handleThemeSwitch}
+        id="black"
+        color="black"
+        label="dark"
+      />
       {user && (
         <Typography
           as={Link}
