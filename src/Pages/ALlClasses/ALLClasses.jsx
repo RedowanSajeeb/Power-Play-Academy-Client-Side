@@ -23,7 +23,6 @@ const ALLClasses = () => {
   });
 
   const { user } = useAuth();
-
   const { data: role = [] } = useQuery(["AllRole"], {
     queryFn: async () => {
       const res = await axiosSecure.get("/classes/role/instructor");
@@ -85,9 +84,7 @@ const ALLClasses = () => {
 
             <CardFooter className="pt-0 ">
               <Button
-                disabled={
-                  rolechak == true || parseFloat(classA.availableSeats) <= 0
-                }
+                disabled={rolechak == true || parseFloat(classA.availableSeats) <= 0 }
                 className={`w-full ${
                   parseFloat(classA.availableSeats) <= 0
                     ? "bg-green-500"
