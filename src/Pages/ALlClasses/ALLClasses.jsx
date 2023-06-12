@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -9,8 +9,10 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import useAuth from "../../Hooks/useAuth";
 
 const ALLClasses = () => {
+  const [rolechak, setRolechak] = useState(false);
   const [axiosSecure] = useAxiosSecure();
 
   const { data: classesALL = [], refetch } = useQuery(["AllClasses"], {
@@ -20,7 +22,23 @@ const ALLClasses = () => {
     },
   });
 
-  console.log(classesALL);
+  const { user } = useAuth();
+
+  const { data: role = [] } = useQuery(["AllRole"], {
+    queryFn: async () => {
+      const res = await axiosSecure.get("/classes/role/instructor");
+      return res.data;
+    },
+  });
+
+  useEffect(() => {
+    const foundRole = role.find((rl) => rl.email === user?.email);
+    if (foundRole) {
+      setRolechak(true);
+    }
+  }, [role, user]);
+
+  // console.log(rolechak);
 
   return (
     <div>
@@ -39,7 +57,9 @@ const ALLClasses = () => {
             </CardHeader>
             <CardBody
               className={`${
-                parseFloat(classA.availableSeats) <= 0 ? " text-xl  text-red-600" : ""
+                parseFloat(classA.availableSeats) <= 0
+                  ? " text-lg  text-gray-700"
+                  : ""
               }`}
               style={{
                 backgroundImage: `${
@@ -50,8 +70,7 @@ const ALLClasses = () => {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right center",
-                backgrounOpacity: "20%", 
-                
+                backgroundOpacity: "20%",
               }}
             >
               <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -66,8 +85,14 @@ const ALLClasses = () => {
 
             <CardFooter className="pt-0 ">
               <Button
-                disabled={parseFloat(classA.availableSeats) <= 0}
-                className="w-full bg-green-700"
+                disabled={
+                  rolechak == true || parseFloat(classA.availableSeats) <= 0
+                }
+                className={`w-full ${
+                  parseFloat(classA.availableSeats) <= 0
+                    ? "bg-green-500"
+                    : "bg-green-700"
+                }`}
               >
                 Select
               </Button>
