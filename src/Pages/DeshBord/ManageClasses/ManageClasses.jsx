@@ -42,28 +42,27 @@ const ManageClasses = () => {
   const handlerApproved = (id) => {
     console.log(id);
 
-     fetch(`http://localhost:4000/class/approved/${id}`, {
-       method: "PATCH",
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         //TODO: handle-admin
-         if (data.modifiedCount > 0) {
-           refetch();
-         }
-         //  if (data.modifiedCount) {
-         // //    refetch();
-         //    Swal.fire({
-         //      position: "top-center",
-         //      icon: "success",
-         //      title: `${user.name} is an now authenticated!`,
-         //      showConfirmButton: false,
-         //      timer: 1500,
-         //    });
-         //  }
-       });
-
+    fetch(`http://localhost:4000/class/approved/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        //TODO: handle-admin
+        if (data.modifiedCount > 0) {
+          refetch();
+        }
+        //  if (data.modifiedCount) {
+        // //    refetch();
+        //    Swal.fire({
+        //      position: "top-center",
+        //      icon: "success",
+        //      title: `${user.name} is an now authenticated!`,
+        //      showConfirmButton: false,
+        //      timer: 1500,
+        //    });
+        //  }
+      });
   };
 
   // handlerDenyd;
@@ -93,7 +92,7 @@ const ManageClasses = () => {
       });
   };
 
-  console.log(admiNclassesALL); 
+  console.log(admiNclassesALL);
   return (
     <div>
       classes
@@ -138,20 +137,18 @@ const ManageClasses = () => {
                             Price:$ {adminClasses.price}
                           </div>
                         </div>
-                        <Chip
-                          variant="ghost"
-                          color="blue"
-                          size="sm"
-                          value={
-                            adminClasses.Status
-                              ? adminClasses.Status
-                              : "pending"
-                          }
-                          icon={
-                            <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
-                          }
-                        />
                       </div>
+                      <Chip className="mt-2 text-center"
+                        variant="ghost"
+                        color="blue"
+                        size="sm"
+                        value={
+                          adminClasses.Status ? adminClasses.Status : "pending"
+                        }
+                        icon={
+                          <span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />
+                        }
+                      />
                     </td>
 
                     <td>
@@ -159,7 +156,10 @@ const ManageClasses = () => {
                         <Button
                           onClick={() => handlerApproved(adminClasses._id)}
                           color="green"
-                          disabled={adminClasses.Status == "approved"}
+                          disabled={
+                            adminClasses.Status == "approved" ||
+                            adminClasses.Status == "denied"
+                          }
                         >
                           Approve
                         </Button>
