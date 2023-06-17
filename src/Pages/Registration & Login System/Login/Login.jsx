@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import SocialLoginShare from "../SocialLogin/SocialLoginShare";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
+import { Toaster, toast } from "react-hot-toast";
 const Login = () => {
   const {loginUserEmail} =useAuth()
     const {
@@ -25,15 +26,16 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        //TODO: SUCCESS message tost
         console.log(user);
+        toast.success('successfully signed')
       })
       .catch((error) => {
 
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode,errorMessage);
-        //TODO: Error message should be something other than error 
+        toast.error(errorCode,errorMessage)
+       
       });
   };
 
@@ -43,10 +45,10 @@ const Login = () => {
       shadow={false}
       className=" w-1/4 mx-auto mt-10 mb-10"
     >
-      <Typography variant="h4" color="blue-gray">
-        Sign Up
+      <Typography variant="h2" color="blue-gray">
+        Login Now
       </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
+      <Typography color="gray" className="mt-1 font-normal  ">
         Enter your details to Login.
       </Typography>
       <form
@@ -92,8 +94,9 @@ const Login = () => {
         />
         <Button className="mt-6" fullWidth>
           <input fullWidth className="w-full" type="submit" value="Login" />
+          <Toaster></Toaster>
         </Button>
-
+        <h1 className="text-3xl text-center mt-8 mb-4">or Login with</h1>
         <SocialLoginShare></SocialLoginShare>
         <Typography color="gray" className="mt-4 text-center font-normal">
           Already have an account?{" "}

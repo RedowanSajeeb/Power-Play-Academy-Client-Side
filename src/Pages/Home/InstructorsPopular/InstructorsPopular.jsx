@@ -31,16 +31,27 @@ const InstructorsPopular = () => {
      console.log(popularInstructor);
 
     return (
-      <div>
-        <h1>Popular Instructor</h1>
+      <div className="md:mt-32 mb-10">
+        <div>
+          <h1 className="text-center text-4xl md:text-5xl mb-10 md:mt sora  ">
+            Popular Instructor
+          </h1>
+        </div>
         {/* -----//TODO------ */}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-x-10 max-w-6xl mx-auto">
           {popularInstructor.map((instructor) => (
-            <div key={instructor._id}>
-              <Card className="w-96">
+            <div
+              key={instructor._id}
+              data-aos="fade-up"
+              data-aos-duration="3000"
+            >
+              <Card className="w-96 hover:scale-90 duration-700 ">
                 <CardHeader floated={false} className="h-80">
-                  <img className="w-full " src={instructor.instructorOPhoto} />
+                  <img
+                    className="w-full hover:scale-125 duration-1000 "
+                    src={instructor.instructorOPhoto}
+                  />
                 </CardHeader>
                 <CardBody className="text-center">
                   <Typography variant="h4" color="blue-gray" className="mb-2">

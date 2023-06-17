@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,14 +12,14 @@ import "./Slider.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 const Slider = () => {
-     const progressCircle = useRef(null);
-     const progressContent = useRef(null);
-     const onAutoplayTimeLeft = (s, time, progress) => {
-       progressCircle.current.style.setProperty("--progress", 1 - progress);
-       progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-     };
+  const progressCircle = useRef(null);
+  const progressContent = useRef(null);
+  const onAutoplayTimeLeft = (s, time, progress) => {
+    progressCircle.current.style.setProperty("--progress", 1 - progress);
+    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+  };
   return (
-    <>
+    <div className="md:h-[600px] h-64">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -39,25 +38,28 @@ const Slider = () => {
       >
         <SwiperSlide>
           <img
-            src="https://kaptivasportsacademy.com/wp-content/uploads/2022/09/MicrosoftTeams-image-6-1024x576.png"
+            src="https://sportstaracademy.com/media/1342/16442_ssa_school_grants_website_banner_v2.jpg?anchor=center&height=500&quality=90"
+            alt=""
+          />
+          <h1 className="absolute p-3 md:text-2xl bg-white -mt-20 md:-mt-56 md:p-6 rounded-full ">
+            Power Play Academy
+          </h1>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src="https://www.thesportsgurukul.com/assets/images/slider-show/2.jpg"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://franchiseindia.s3.ap-south-1.amazonaws.com/uploads/content/edu/art/5a5da7c74bce1.jpg"
+            src="https://i.ibb.co/zVqQCps/Screenshot-2023-06-15-214546.png"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTczcByReSmKNPSW2RkhyOpLuf5JRvwapoNV0_YPqyGdjwoP7CK1kqjCygQ7gLsKyCIjjg&usqp=CAU"
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://thebridge.in/h-upload/2021/04/19/3167-untitled-1.webp"
+            src="https://i.ibb.co/6mP2fcP/Screenshot-2023-06-15-214608.png"
             alt=""
           />
         </SwiperSlide>
@@ -69,7 +71,7 @@ const Slider = () => {
           <span ref={progressContent}></span>
         </div>
       </Swiper>
-    </>
+    </div>
   );
 };
 

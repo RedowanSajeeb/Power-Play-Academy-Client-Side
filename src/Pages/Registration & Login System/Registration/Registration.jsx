@@ -11,14 +11,15 @@ import SocialLoginShare from "../SocialLogin/SocialLoginShare";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
+import { Toaster, toast } from "react-hot-toast";
 
 const Registration = () => {
   const { createUser, userProfileUpdate } = useAuth();
 
   const [confomError, setConfomError] = useState("");
-const navigate = useNavigate();
-const location = useLocation();
-const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -38,7 +39,6 @@ const from = location.state?.from?.pathname || "/";
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          //TODO: Tost Add
           console.log(user);
           if (user) {
             console.log(data);
@@ -53,7 +53,7 @@ const from = location.state?.from?.pathname || "/";
                   Address: data.address,
                 };
 
-                fetch("http://localhost:4000/users", {
+                fetch("https://power-play-academy-server-side-redowansajeeb.vercel.app/users", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify(userProfileInfoServerAdded),
@@ -62,18 +62,18 @@ const from = location.state?.from?.pathname || "/";
                   .then((data) => {
                     console.log(data);
                     if (data.insertedId) {
-                    //TODO: tost doesn't
-                      alert('Insert user successfully logged')
-                       navigate(from, { replace: true });
+                     
+                       toast.success('Your account has been created successfully')
+                      navigate(from, { replace: true });
                     }
                   });
 
-                // Email updated!
-                //TODO: Tost Add
+                
               })
               .catch((error) => {
                 // An error occurred
                 // ...
+                toast.error(error.message)
               });
           }
         })
@@ -82,6 +82,7 @@ const from = location.state?.from?.pathname || "/";
           const errorMessage = error.message;
           //TODO: error show korta hobe!
           console.log(errorCode, errorMessage);
+           toast.error(errorMessage,errorCode);
         });
     }
   };
@@ -217,8 +218,9 @@ const from = location.state?.from?.pathname || "/";
 
         <Button className="mt-6" fullWidth>
           <input fullWidth className="w-full" type="submit" value="Submit" />
+          <Toaster></Toaster>
         </Button>
-
+        <h1 className="text-3xl text-center mt-8 mb-4">or Contact with</h1>
         <SocialLoginShare></SocialLoginShare>
 
         <Typography color="gray" className="mt-4 text-center font-normal">

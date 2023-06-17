@@ -25,13 +25,16 @@ const Instructors = () => {
       console.log(instructors);
     return (
       <div>
-        /all/instructors
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <h1 className="text-center text-4xl mt-10 mb-10">All instructors</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 mb-10">
           {instructors.map((instructor) => (
-            <Card key={instructor._id} className="mt-6 w-96">
+            <Card
+              key={instructor._id}
+              className="mt-6 w-96 hover:scale-90 duration-700"
+            >
               <CardBody>
                 <img
-                  className="w-16 h-16 mb-4 rounded-lg"
+                  className="w-16 h-16 mb-4 rounded-lg hover:scale-125 duration-1000"
                   src={instructor.instructorOPhoto}
                   alt=""
                 />

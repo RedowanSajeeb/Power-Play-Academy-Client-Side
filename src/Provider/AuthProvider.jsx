@@ -54,7 +54,7 @@ const AuthProvider = ({children}) => {
 
       if (currentUser) {
           axios
-            .post("http://localhost:4000/jwt", { email: currentUser.email })
+            .post("https://power-play-academy-server-side-redowansajeeb.vercel.app/jwt", { email: currentUser.email })
             .then((data) => {
               console.log(data.data.token);
 

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font{
+    font-family: 'Poppins', sans-serif;
+}
+
+.Playball{
+    font-family: 'Playball', cursive;
+}
+.sora{
+    font-family: 'Sora', sans-serif;
+}

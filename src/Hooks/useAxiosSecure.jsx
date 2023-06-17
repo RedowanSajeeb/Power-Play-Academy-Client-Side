@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://power-play-academy-server-side-redowansajeeb.vercel.app",
 });
 
 const useAxiosSecure = () => {

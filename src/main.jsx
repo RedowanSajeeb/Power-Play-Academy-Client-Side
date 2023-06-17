@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <div className="max-w-screen-2xl mx-auto dark:text-white dark:bg-black">
+      <div className="mx-auto overflow-x-hidden dark:text-white dark:bg-black font">
         <React.StrictMode>
           <RouterProvider router={router} />
         </React.StrictMode>

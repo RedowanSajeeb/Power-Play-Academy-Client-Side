@@ -14,6 +14,8 @@ import {
   Chip,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useSpring, animated } from "@react-spring/web";
+import { Toaster, toast } from "react-hot-toast";
 
 const ManageClasses = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -27,7 +29,7 @@ const ManageClasses = () => {
       },
     }
   );
-
+console.log(admiNclassesALL);
   const [open, setOpen] = React.useState(false);
   const [feedbackText, setFeedbackText] = React.useState("");
   const [selectedClassId, setSelectedClassId] = React.useState(null);
@@ -50,48 +52,65 @@ const ManageClasses = () => {
        console.log("after posting feedback", data.data);
        refetch();
        setOpen(false);
+         if(data.modifiedCount >0 ){
+          toast.success('feedback sent successfully')
+         }
      })
      .catch((error) => {
        console.log("Error while sending feedback:", error);
+       toast.error(error);
      });
 
   };
 
   const handlerApproved = (id) => {
-    fetch(`http://localhost:4000/class/approved/${id}`, {
+    fetch(`https://power-play-academy-server-side-redowansajeeb.vercel.app/class/approved/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
           refetch();
+      toast.success('class approved successfully')
         }
       })
       .catch((error) => {
         console.log("Error while approving class:", error);
+        toast.error(error);
       });
   };
 
   const handlerDenyd = (id) => {
-    fetch(`http://localhost:4000/class/denied/${id}`, {
+    fetch(`https://power-play-academy-server-side-redowansajeeb.vercel.app/class/denied/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
           refetch();
+          toast.success('Class denied successfully')
         }
       })
       .catch((error) => {
         console.log("Error while denying class:", error);
+        toast.error(error)
       });
   };
-
+const springs = useSpring({
+  from: { x: -100 },
+  to: { x: 100 },
+});
   return (
     <div>
-      classes
+      <animated.div
+        style={{
+          ...springs,
+        }}
+      >
+        <h1 className="text-4xl text-center mb-4">Manage Classes</h1>
+      </animated.div>
       <div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto md:ms-28 ">
           <table className="table table-zebra">
             <thead>
               <tr>
@@ -121,10 +140,14 @@ const ManageClasses = () => {
                   </td>
                   <td>
                     <div className="flex flex-col justify-center items-center">
-                      <div className="stats shadow">
+                      <div className="stats shadow ">
                         <div className="stat flex flex-col justify-center items-center">
                           <div className="stat-title">Available seats</div>
-                          <div className="stat-value">{0}</div>
+                          <div className="stat-value">
+                            {adminClasses.availableSeats
+                              ? adminClasses.availableSeats
+                              : 0}
+                          </div>
                           <div className="stat-desc text-xl">
                             Price: ${adminClasses.price}
                           </div>
@@ -146,7 +169,7 @@ const ManageClasses = () => {
                   </td>
 
                   <td>
-                    <div className="flex gap-2 mr-0">
+                    <div className="flex flex-col  gap-2 mr-0">
                       <Button
                         onClick={() => handlerApproved(adminClasses._id)}
                         color="green"
@@ -156,6 +179,7 @@ const ManageClasses = () => {
                         }
                       >
                         Approve
+                        <Toaster></Toaster>
                       </Button>
                       <Button
                         onClick={() => handlerDenyd(adminClasses._id)}
@@ -163,11 +187,13 @@ const ManageClasses = () => {
                         disabled={adminClasses.Status === "denied"}
                       >
                         Deny
+                        <Toaster></Toaster>
                       </Button>
 
                       <>
                         <Button onClick={() => handleOpen(adminClasses._id)}>
                           feedback
+                          <Toaster></Toaster>
                         </Button>
                         <Dialog open={open} handler={handleOpen}>
                           <div className="flex items-center justify-between">

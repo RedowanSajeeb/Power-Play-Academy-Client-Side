@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { Toaster, toast } from "react-hot-toast";
 const img_hostingApi_Token = import.meta.env.VITE_imgHostingAPI;
 
 const AddClass = () => {
@@ -43,15 +44,8 @@ const AddClass = () => {
               console.log("add new class", data.data);
               if (data.data.acknowledged) {
                 reset();
-                alert("class added successfully");
-                //TODO add new tost
-                // Swal.fire({
-                //   position: "top-center",
-                //   icon: "success",
-                //   title: "New menu item inserted successfully",
-                //   showConfirmButton: false,
-                //   timer: 1500,
-                // });
+                  toast.success('class added successfully')
+                //TODO add new tost               
               }
             });
         }
@@ -62,6 +56,9 @@ const AddClass = () => {
   };
   return (
     <div>
+      <h1 className="sora text-4xl mb-5">
+        Fill out the form below to add a new class
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="p-14 rounded-lg border-2"
@@ -138,6 +135,7 @@ const AddClass = () => {
           type="submit"
           value="Add"
         />
+        <Toaster></Toaster>
       </form>
     </div>
   );

@@ -1,17 +1,19 @@
 import { Outlet } from "react-router-dom";
-import Home from "../Pages/Home/Home/Home";
+
 import Navbar from "../Pages/Navbar/Navbar";
 import Footer from "../Pages/Footer/Footer";
-
-
+import { motion, useScroll } from "framer-motion";
 const Main = () => {
-    return (
-        <div>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
-            <Footer></Footer>        
-        </div>
-    );
+  const { scrollYProgress } = useScroll();
+  return (
+    <div>
+      <Navbar></Navbar>
+      <div className="max-w-screen-2xl mx-auto">
+        <Outlet></Outlet>
+      </div>
+      <Footer></Footer>
+    </div>
+  );
 };
 
 export default Main;

@@ -1,74 +1,77 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useSpring, animated } from "@react-spring/web";
+import { Toaster, toast } from "react-hot-toast";
 
 const ManageUsers = () => {
+  const [axiosSecure] = useAxiosSecure();
 
-    const [axiosSecure] = useAxiosSecure();
+  const { data: users = [], refetch } = useQuery(["users"], async () => {
+    const res = await axiosSecure.get("/users");
+    return res.data;
+  });
 
-    const { data: users = [], refetch } = useQuery(["users"], async () => {
-      const res = await axiosSecure.get("/users");
-      return res.data;
-    });
-
-
-  //make Instructor handler
-  const  handlerMakeInstructor = (id) =>{
+  // Make Instructor handler
+  const handlerMakeInstructor = (id) => {
     console.log(id);
 
-     fetch(`http://localhost:4000/users/instructors/${id}`, {
-       method: "PATCH",
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         //TODO: handle
-          if(data.modifiedCount > 0){
-            refetch()
-          }
-         //  if (data.modifiedCount) {
-         // //    refetch();
-         //    Swal.fire({
-         //      position: "top-center",
-         //      icon: "success",
-         //      title: `${user.name} is an now authenticated!`,
-         //      showConfirmButton: false,
-         //      timer: 1500,
-         //    });
-         //  }
-       });
-  }
-// handlerAdminMake
-
-const handlerAdminMake = (id) => {
-
-    fetch(`http://localhost:4000/users/admin/${id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://power-play-academy-server-side-redowansajeeb.vercel.app/users/instructors/${id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        //TODO: handle-admin
-            if (data.modifiedCount > 0) {
-              refetch();
-            }
-        //  if (data.modifiedCount) {
-        // //    refetch();
-        //    Swal.fire({
-        //      position: "top-center",
-        //      icon: "success",
-        //      title: `${user.name} is an now authenticated!`,
-        //      showConfirmButton: false,
-        //      timer: 1500,
-        //    });
-        //  }
+        // TODO: handle
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("New instructor added successfully");
+        }
       });
+  };
 
-};
+  // Make Admin handler
+  const handlerAdminMake = (id) => {
+    fetch(
+      `https://power-play-academy-server-side-redowansajeeb.vercel.app/users/admin/${id}`,
+      {
+        method: "PATCH",
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // TODO: handle-admin
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success("New Admin added successfully");
+        }
+      });
+  };
+
+  const springs = useSpring({
+    from: { x: -100 },
+    to: { x: 100 },
+  });
 
   return (
     <div className="">
-      <div className="overflow-x-auto">
+      <animated.div
+        style={{
+          ...springs,
+        }}
+      >
+        <h1 className="text-4xl text-center mb-4">Manage Users</h1>
+      </animated.div>
+
+      <div
+        className="overflow-x-auto"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+      >
         <table className="table table-zebra">
           {/* head */}
           <thead className="bg-green-100 bg-opacity-20">
@@ -88,21 +91,14 @@ const handlerAdminMake = (id) => {
                   <div className="flex items-center space-x-3">
                     <div
                       className={`avatar  ${
-                        user.role == "admin"
-                          ? "online"
-                          : "offline" && user.role == "instructor"
-                          ? "online"
-                          : ""
+                        user.role === "admin" ? "online" : "offline"
                       }`}
                     >
                       <div
                         className={`w-16 rounded-full ${
-                          user.role == "admin"
-                            ? " ring  ring-success ring-offset-base-100 ring-offset-2"
-                            : "ring ring-primary ring-offset-base-100 ring-offset-2" &&
-                              user.role == "instructor"
-                            ? "ring ring-primary ring-offset-base-100 ring-offset-2"
-                            : ""
+                          user.role === "admin"
+                            ? "ring ring-success ring-offset-base-100 ring-offset-2"
+                            : "ring ring-primary ring-offset-base-100 ring-offset-2"
                         } `}
                       >
                         <img
@@ -136,18 +132,22 @@ const handlerAdminMake = (id) => {
                   <button
                     onClick={() => handlerMakeInstructor(user._id)}
                     className="btn btn-outline"
+                    disabled={user.role === "instructor"}
                   >
                     Make Instructor
+                    <Toaster></Toaster>
                   </button>
                 </td>
-                <th>
+                <td>
                   <button
                     onClick={() => handlerAdminMake(user._id)}
                     className="btn btn-outline btn-primary"
+                    disabled={user.role === "admin"}
                   >
                     Make Admin
+                    <Toaster></Toaster>
                   </button>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>

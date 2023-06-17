@@ -1,25 +1,35 @@
 import { Elements } from "@stripe/react-stripe-js";
-
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
-// import useCart from "../../../Hooks/useCart";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Payment = () => {
-//   const [cart] = useCart();
+  const [payPrice, setPayPrice] = useState(null);
+  const location = useLocation();
 
-//   const totalPrice = cart.reduce((sum, items) => items.price + sum, 0);
-//   const price = parseFloat(totalPrice.toFixed(2));
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const price = queryParams.get("price");
 
-  //
+   setPayPrice(parseFloat(price));
+  }, [location]);
+
+
+  // console.log(price);
+
   const stripePromise = loadStripe(import.meta.env.VITE_payment_Gateway_OK);
   return (
-    <div className="w-1/2">
-  
-
-      <Elements stripe={stripePromise}>
-        {/* <CheckoutForm price={price} /> */}
-        <h1>ff</h1>
-      </Elements>
+    <div>
+      <h1 className="text-2xl uppercase font-semibold">
+        please process payment
+      </h1>
+      <div className="w-full">
+        <Elements stripe={stripePromise}>
+       
+          <CheckoutForm price={payPrice}></CheckoutForm>
+        </Elements>
+      </div>
     </div>
   );
 };

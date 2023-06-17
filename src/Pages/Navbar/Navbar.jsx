@@ -25,6 +25,7 @@ import {
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { Switch } from "@material-tailwind/react";
+import { Toaster, toast } from "react-hot-toast";
 // profile menu component
 const profileMenuItems = [
   {
@@ -80,9 +81,11 @@ function ProfileMenu() {
       .then(() => {
         // Sign-out successful.
         //TODO
+        toast.success('Sign-out successful!')
       })
       .catch((error) => {
         // An error happened.
+        toast.error(error.message)
       });
   };
   return (
@@ -136,6 +139,7 @@ function ProfileMenu() {
           className="w-full hover:bg-red-500/10 bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
         >
           {renderProfileMenuItem(profileMenuItems[4])}
+          <Toaster></Toaster>
         </button>
       </MenuList>
     </Menu>
@@ -197,7 +201,7 @@ function NavList() {
 
  const { user } = useAuth();
   return (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+    <ul className="mb-4 mt-2 flex flex-col sora gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
 
       <Typography
@@ -258,7 +262,7 @@ function NavList() {
           color="blue-gray"
           className="font-normal"
         >
-          <MenuItem className="flex text-base  items-center gap-2 lg:rounded-full">
+          <MenuItem className="flex sora text-xl items-center gap-2 lg:rounded-full">
             Dashboard
           </MenuItem>
         </Typography>
@@ -279,12 +283,17 @@ export default function ComplexNavbar() {
   }, []);
 
   return (
-    <Navbar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 mb-5">
-      <div className="relative mx-auto max-w-screen-xl flex items-center text-blue-gray-900">
+    <Navbar className="sticky inset-0 z-10 h-max max-w-full text-xl rounded-none py-2 px-4 lg:px-8 lg:py-4 mb-5">
+      <div className="relative mx-auto max-w-screen-xl  flex items-center text-blue-gray-900">
+        <img
+          className="h-14"
+          src="https://www.schoolofengineeringandsciences.org/sites/main/files/imagecache/thumbnail/main-images/sports_1.png?1578079690"
+          alt=""
+        />
         <Typography
           as={Link}
           to="/"
-          className="mr-4 ml-2 cursor-pointer py-1.5 text-2xl"
+          className="mr-4 ml-2 cursor-pointer py-1.5 text-2xl Playball "
         >
           Power Play Academy
         </Typography>
