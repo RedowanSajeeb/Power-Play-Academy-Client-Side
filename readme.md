@@ -1,6 +1,6 @@
 
 # Power Play Academy
-# Administrator Password email : phero@gmail.com And Password azDFj3TWq1qUWKHZwR4sKW#
+# Administrator Password email : phero@gmail.com And Password: azDFj3TWq1qUWKHZwR4sKW#
 
 
 
